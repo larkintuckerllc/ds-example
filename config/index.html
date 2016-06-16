@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Digital Signage Example Configuration</title>
+  <link rel="stylesheet" type="text/css" href="../bower_components/ds-client/css/ds-base.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+  <div id="authorized" style="display: none;">
+    <button id="logout">Logout</button>
+    <form id="config">
+      <select id="config__interval">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="30">30</option>
+      </select><br />
+      <input id="config__portrait" type="checkbox" /><br />
+      <input type="submit" />
+    </form>
+    <form id="pdf">
+      <input id="pdf__file" type="file"><br />
+      <input type="submit" />
+    </form>
+    <button id="delete" style="display: none;">Delete</button>
+  </div>
+  <script src="../bower_components/ds-client/js/ds-base.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

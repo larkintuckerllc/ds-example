@@ -3,12 +3,12 @@
   var CONFIG_FILENAME = 'config.json';
   var PDF_FILENAME = 'example.pdf';
   var USER = 'larkintuckerllc';
-  var REPO = 'ds-prototype';
+  var REPO = 'ds-example';
   var ds = window.ds;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    ds.setBase('http://localhost', USER, REPO); // DEV
-    // ds.setBase('http://192.168.1.2', USER, REPO); // PROD
+    // ds.setBase('http://localhost', USER, REPO); // DEV
+    ds.setBase('http://192.168.1.2', USER, REPO); // PROD
     ds.addAdminTools(document.body,loginCallback);
     function loginCallback() {
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
@@ -27,7 +27,7 @@
         if (downloadObjectErr) {
           config = {
             interval: 5,
-            portrait: false,
+            portrait: true,
             uploadedPdf: false
           };
         }

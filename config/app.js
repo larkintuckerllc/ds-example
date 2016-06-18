@@ -1,10 +1,14 @@
 (function() {
   'use strict';
   var CONFIG_FILENAME = 'config.json';
+  var PDF_FILENAME = 'example.pdf';
+  var USER = 'larkintuckerllc';
+  var REPO = 'ds-prototype';
   var ds = window.ds;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    ds.setBase('http://localhost', 'larkintuckerllc', 'ds-prototype'); // DEV
+    ds.setBase('http://localhost', USER, REPO); // DEV
+    // ds.setBase('http://192.168.1.2', USER, REPO); // PROD
     ds.addAdminTools(document.body,loginCallback);
     function loginCallback() {
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
@@ -55,7 +59,7 @@
           if (!pdfFileEl.files.length) {
             return;
           }
-          if (pdfFileEl.files[0].name !== 'example.pdf') {
+          if (pdfFileEl.files[0].name !== PDF_FILENAME) {
             // TODO: HANDLE ERROR
             return;
           }
@@ -79,7 +83,7 @@
           }
         }
         function handleDelete() {
-          ds.remove('example.pdf', handleRemove);
+          ds.remove(PDF_FILENAME, handleRemove);
           function handleRemove(error) {
             // TODO: HANDLE ERROR
             if (error) {

@@ -1,48 +1,47 @@
 (function() {
   'use strict';
-  var UPLOAD_URL = '/larkintuckerllc-ds-example-upload/';
+  var USER = 'larkintuckerllc';
+  var REPO = 'ds-prototype';
+  var CONFIG_FILENAME = 'config.json';
+  var PDF_FILENAME = 'example.pdf';
+  var ds = window.ds;
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
     var frameEl = document.getElementById('my_frame');
-    // TODO: FIX THIS AND INDEX
     thr0w.setBase('http://localhost'); // DEV
     // thr0w.setBase('http://192.168.1.2'); // PROD
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function connectCallback() {
-      // TRY READING AN UPLOADED CONFIGURATION FILE
       var contentEl = document.getElementById('my_content');
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = handleOnreadystatechange;
-      xmlhttp.open('GET', UPLOAD_URL + 'config.json', true);
-      xmlhttp.send();
-      function handleOnreadystatechange() {
-        var config;
+      ds.setBase('http://localhost', USER, REPO); // DEV
+      // ds.setBase('http://192.168.1.2', USER, REPO); // PROD
+      ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
+      function handleDownloadObject(downloadObjectErr, config) {
+        var grid;
         var pdf;
         var pdfUrl;
-        if (xmlhttp.readyState !== 4) {
+        if (downloadObjectErr && downloadObjectErr !== 404) {
           return;
         }
-        if (xmlhttp.status === 200) {
-          config = JSON.parse(xmlhttp.responseText);
-        } else {
-          // DEFAULT VALUES
+        if (downloadObjectErr) {
           config = {
             interval: 5,
             portrait: false,
             uploadedPdf: false
           };
         }
-        pdfUrl = config.uploadedPdf ? UPLOAD_URL + 'example.pdf' :
-          'example.pdf';
         if (config.portrait) {
           frameEl.style.width = '1080px';
           frameEl.style.height = '1920px';
           contentEl.style.width = '1080px';
           contentEl.style.height = '1920px';
         }
-        var grid = new thr0w.Grid(
+        pdfUrl = config.uploadedPdf ?
+          '/' + USER + '-' + REPO + '-upload/' + PDF_FILENAME :
+          PDF_FILENAME;
+        grid = new thr0w.Grid(
           frameEl,
           document.getElementById('my_content'),
           [[0]]

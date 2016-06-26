@@ -1,7 +1,7 @@
 {
   "name": "thr0w-pdf",
   "description": "The Thr0w Project is about building digital signage. This package is used to create interactive Portable Document Format (PDF) files.",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": [
     "dist/thr0w-pdf.css",
     "dist/thr0w-pdf.min.js"
@@ -21,6 +21,6 @@
     "url": "https://github.com/larkintuckerllc/thr0w-pdf.git"
   },
   "dependencies": {
-    "thr0w-client": "^2.0.5"
+    "thr0w-client": "^2.1.0"
   }
 }

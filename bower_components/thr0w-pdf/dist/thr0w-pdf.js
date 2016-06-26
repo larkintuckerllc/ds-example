@@ -178,7 +178,13 @@
         if (currPageNumber < numPages) {
           closePage(currPageNumber + 1);
         }
-        openPageInPosition(pageNumber, CENTER);
+        if (pageNumber >= currPageNumber) {
+          openPageInPosition(pageNumber, RIGHT);
+          window.setTimeout(animate, 0);
+        } else {
+          openPageInPosition(pageNumber, LEFT);
+          window.setTimeout(animate, 0);
+        }
         if (pageNumber > 1) {
           openPageInPosition(pageNumber - 1, LEFT);
         }
@@ -186,6 +192,21 @@
           openPageInPosition(pageNumber + 1, RIGHT);
         }
         currPageNumber = pageNumber;
+        // jscs:disable
+        /**
+        * Page Open
+        *
+        * @event page_open
+        */
+        // jscs:enable
+        document.dispatchEvent(new CustomEvent(
+          'thr0w_pdf_' + containerId + '_' + 'page_open', {}
+        ));
+        function animate() {
+          document.getElementById('thr0w_pdf_carosel__page--' +
+            containerId + '_' +
+            currPageNumber).style.transform = 'translateZ(0px)';
+        }
       }
       // jscs:disable
       /**
@@ -218,13 +239,6 @@
         if (currPageNumber < numPages) {
           openPageInPosition(currPageNumber + 1, RIGHT);
         }
-        // jscs:disable
-        /**
-        * Page Open
-        *
-        * @event page_open
-        */
-        // jscs:enable
         document.dispatchEvent(new CustomEvent(
           'thr0w_pdf_' + containerId + '_' + 'page_open', {}
         ));

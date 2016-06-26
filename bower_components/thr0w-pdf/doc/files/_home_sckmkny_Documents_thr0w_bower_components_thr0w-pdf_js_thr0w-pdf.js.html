@@ -270,7 +270,13 @@
         if (currPageNumber &lt; numPages) {
           closePage(currPageNumber + 1);
         }
-        openPageInPosition(pageNumber, CENTER);
+        if (pageNumber &gt;= currPageNumber) {
+          openPageInPosition(pageNumber, RIGHT);
+          window.setTimeout(animate, 0);
+        } else {
+          openPageInPosition(pageNumber, LEFT);
+          window.setTimeout(animate, 0);
+        }
         if (pageNumber &gt; 1) {
           openPageInPosition(pageNumber - 1, LEFT);
         }
@@ -278,6 +284,21 @@
           openPageInPosition(pageNumber + 1, RIGHT);
         }
         currPageNumber = pageNumber;
+        // jscs:disable
+        /**
+        * Page Open
+        *
+        * @event page_open
+        */
+        // jscs:enable
+        document.dispatchEvent(new CustomEvent(
+          &#x27;thr0w_pdf_&#x27; + containerId + &#x27;_&#x27; + &#x27;page_open&#x27;, {}
+        ));
+        function animate() {
+          document.getElementById(&#x27;thr0w_pdf_carosel__page--&#x27; +
+            containerId + &#x27;_&#x27; +
+            currPageNumber).style.transform = &#x27;translateZ(0px)&#x27;;
+        }
       }
       // jscs:disable
       /**
@@ -310,13 +331,6 @@
         if (currPageNumber &lt; numPages) {
           openPageInPosition(currPageNumber + 1, RIGHT);
         }
-        // jscs:disable
-        /**
-        * Page Open
-        *
-        * @event page_open
-        */
-        // jscs:enable
         document.dispatchEvent(new CustomEvent(
           &#x27;thr0w_pdf_&#x27; + containerId + &#x27;_&#x27; + &#x27;page_open&#x27;, {}
         ));

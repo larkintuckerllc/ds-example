@@ -39,7 +39,7 @@
           contentEl.style.height = '1920px';
         }
         pdfUrl = config.uploadedPdf ?
-          '/' + USER + '-' + REPO + '-upload/' + PDF_FILENAME :
+          '/upload/' + USER + '-' + REPO + '/' + PDF_FILENAME :
           PDF_FILENAME;
         grid = new thr0w.Grid(
           frameEl,

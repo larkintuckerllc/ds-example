@@ -17,13 +17,24 @@
           return;
         }
         var authorizedEl = document.getElementById('authorized');
-        var configEl = document.getElementById('config');
-        var intervalEl = document.getElementById('config__interval');
-        var logoutEl = document.getElementById('logout');
-        var pdfEl = document.getElementById('pdf');
-        var deleteEl = document.getElementById('delete');
-        var pdfFileEl = document.getElementById('pdf__file');
-        var portraitEl = document.getElementById('config__portrait');
+        var authorizedConfigEl = document.getElementById('authorized__config');
+        var authorizedConfigIntervalEl =
+          document.getElementById('authorized__config__interval');
+        var authorizdConfigPortraitEl =
+          document.getElementById('authorized__config__portrait');
+        var authorizedConfigFailedEl =
+          document.getElementById('authorized__config__failed');
+        var authorizedPdfFailedEl =
+          document.getElementById('authorized__pdf-failed');
+        var authorizedPdfBrowseEl =
+          document.getElementById('authorized__pdf-browse');
+        var authorizedPdfBrowseFileEl =
+          document.getElementById('authorized__pdf-browse__file');
+        var authorizedPdfDeleteEl =
+          document.getElementById('authorized__pdf-delete');
+        var authorizedPdfDeleteDeleteEl =
+          document.getElementById('authorized__pdf-delete__delete');
+        var authorizedLogoutEl = document.getElementById('authorized__logout');
         if (downloadObjectErr) {
           config = {
             interval: 5,
@@ -32,77 +43,77 @@
           };
         }
         if (config.uploadedPdf) {
-          pdfEl.style.display = 'none';
-          deleteEl.style.display = 'block';
+          authorizedPdfBrowseEl.style.display = 'none';
+          authorizedPdfDeleteEl.style.display = 'block';
         }
-        intervalEl.value = config.interval;
-        portraitEl.checked = config.portrait;
-        configEl.addEventListener('submit', handleConfigSubmit);
-        pdfEl.addEventListener('submit', handlePdfSubmit);
-        deleteEl.addEventListener('click', handleDelete);
-        logoutEl.addEventListener('click', logout);
+        authorizedConfigIntervalEl.value = config.interval;
+        authorizdConfigPortraitEl.checked = config.portrait;
+        authorizedConfigEl.addEventListener('submit',
+          handleAuthorizedConfigSubmit);
+        authorizedPdfBrowseFileEl
+          .addEventListener('change', handleAuthorizedPdfBrowseFileChange);
+        authorizedPdfDeleteDeleteEl.addEventListener('click',
+          handleAuthorizedPdfDeleteDeleteClick);
+        authorizedLogoutEl.addEventListener('click',
+          ds.logout);
         authorizedEl.style.display = 'block';
-        function handleConfigSubmit(e) {
+        function handleAuthorizedConfigSubmit(e) {
           e.preventDefault();
-          config.interval = intervalEl.value;
-          config.portrait = portraitEl.checked;
+          config.interval = authorizedConfigIntervalEl.value;
+          config.portrait = authorizdConfigPortraitEl.checked;
           ds.uploadObject(config, CONFIG_FILENAME, handleUploadObject);
           function handleUploadObject(error) {
-            // TODO: HANDLE ERROR
-            if (error) {
+            if (error !== null) {
+              authorizedConfigFailedEl.style.display = 'block';
               return;
             }
+            authorizedConfigFailedEl.style.display = 'none';
           }
         }
-        function handlePdfSubmit(e) {
-          e.preventDefault();
-          if (!pdfFileEl.files.length) {
-            return;
-          }
-          if (pdfFileEl.files[0].name !== PDF_FILENAME) {
+        function handleAuthorizedPdfBrowseFileChange() {
+          if (authorizedPdfBrowseFileEl.files[0].name !== PDF_FILENAME) {
             // TODO: HANDLE ERROR
             return;
           }
-          ds.uploadFile(pdfFileEl.files[0], handleUploadFile);
+          ds.uploadFile(authorizedPdfBrowseFileEl.files[0], handleUploadFile);
           function handleUploadFile(error) {
-            // TODO: HANDLE ERROR
-            if (error) {
+            authorizedPdfBrowseFileEl.value = null;
+            if (error !== null) {
+              authorizedPdfFailedEl.style.display = 'block';
               return;
             }
-            pdfFileEl.value = null;
             config.uploadedPdf = true;
             ds.uploadObject(config, CONFIG_FILENAME, handleUploadObject);
             function handleUploadObject(error) {
-              // TODO: HANDLE ERROR
-              if (error) {
+              if (error !== null) {
+                authorizedPdfFailedEl.style.display = 'block';
                 return;
               }
-              pdfEl.style.display = 'none';
-              deleteEl.style.display = 'block';
+              authorizedPdfFailedEl.style.display = 'none';
+              authorizedPdfBrowseEl.style.display = 'none';
+              authorizedPdfDeleteEl.style.display = 'block';
             }
           }
         }
-        function handleDelete() {
+        function handleAuthorizedPdfDeleteDeleteClick() {
           ds.remove(PDF_FILENAME, handleRemove);
           function handleRemove(error) {
-            // TODO: HANDLE ERROR
-            if (error) {
+            if (error !== null) {
+              authorizedPdfFailedEl.style.display = 'block';
               return;
             }
             config.uploadedPdf = false;
             ds.uploadObject(config, CONFIG_FILENAME, handleUploadObject);
             function handleUploadObject(error) {
-              // TODO: HANDLE ERROR
-              if (error) {
+              if (error !== null) {
+                authorizedPdfFailedEl.style.display = 'block';
                 return;
               }
+              authorizedPdfFailedEl.style.display = 'none';
+              authorizedPdfDeleteEl.style.display = 'none';
+              authorizedPdfBrowseEl.style.display = 'block';
             }
-            pdfEl.style.display = 'block';
-            deleteEl.style.display = 'none';
           }
-        }
-        function logout() {
-          ds.logout();
         }
       }
     }

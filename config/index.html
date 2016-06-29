@@ -5,26 +5,69 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Digital Signage Example Configuration</title>
+  <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../bower_components/ds-client/dist/ds-base.css">
   <link rel="stylesheet" type="text/css" href="app.css">
 </head>
 <body>
-  <div id="authorized" style="display: none;">
-    <button id="logout">Logout</button>
-    <form id="config">
-      <select id="config__interval">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="30">30</option>
-      </select><br />
-      <input id="config__portrait" type="checkbox" /><br />
-      <input type="submit" />
-    </form>
-    <form id="pdf">
-      <input id="pdf__file" type="file"><br />
-      <input type="submit" />
-    </form>
-    <button id="delete" style="display: none;">Delete</button>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Configuration</h3>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="authorized" style="display: none;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Basic</h3>
+            </div>
+            <div class="panel-body">
+              <form id="authorized__config">
+                <div class="form-group">
+                  <label for="authorized__config__interval" class="control-label">Rotation Interval</label>
+                  <select id="authorized__config__interval" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="30">30</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input id="authorized__config__portrait" type="checkbox" value="" />
+                        Portrait orientation.
+                    </label>
+                  </div>
+                </div>
+                <div id ="authorized__config__failed" class="alert alert-danger" role="alert" style="display: none;">Submit failed.</div>
+                <div class="form-group">
+                  <input class="btn btn-default" type="submit" value="Submit" />
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Portable Document Format (PDF) File</h3>
+            </div>
+            <div class="panel-body">
+              <div id ="authorized__pdf-failed" class="alert alert-danger" role="alert" style="display: none;">Submit failed.</div>
+              <div id="authorized__pdf-browse" class="form-group">
+                <label class="btn btn-default btn-file">
+                  Browse <input id="authorized__pdf-browse__file" type="file" style="display: none;">
+                </label>
+              </div>
+              <div id="authorized__pdf-delete" style="display: none;" class="form-group">
+                <button id="authorized__pdf-delete__delete" class="btn btn-default">Delete</button>
+              </div>
+            </div>
+          </div>
+          <button id="authorized__logout" class="btn btn-default">Logout</button>
+        </div>
+      </div>
+    </div>
   </div>
   <script src="../bower_components/ds-client/dist/ds-base.min.js"></script>
   <script src="app.js"></script>

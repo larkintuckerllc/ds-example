@@ -1,7 +1,7 @@
 {
   "name": "ds-client",
   "description": "The Digital Signage product is about building digital signage. This package provides the product's (Client) API.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": [
     "dist/ds-base.css",
     "dist/ds-base.min.js"
@@ -21,13 +21,13 @@
   },
   "dependencies": {},
   "homepage": "https://github.com/larkintuckerllc/ds-client",
-  "_release": "0.0.2",
+  "_release": "0.0.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.2",
-    "commit": "6c3bac978aaf7f04d3d076211884334c31aea9a5"
+    "tag": "0.0.3",
+    "commit": "878b760a2493a2a6b2da6a212aca408275a3e0db"
   },
   "_source": "https://github.com/larkintuckerllc/ds-client.git",
-  "_target": "^0.0.2",
+  "_target": "^0.0.3",
   "_originalSource": "ds-client"
 }

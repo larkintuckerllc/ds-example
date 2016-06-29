@@ -4,6 +4,7 @@
   var PDF_FILENAME = 'example.pdf';
   var USER = 'larkintuckerllc';
   var REPO = 'ds-example';
+  var PDF_REGEX = /\.pdf$/i;
   var ds = window.ds;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
@@ -24,6 +25,8 @@
           document.getElementById('authorized__config__portrait');
         var authorizedConfigFailedEl =
           document.getElementById('authorized__config__failed');
+        var authorizedPdfFilenameEl =
+          document.getElementById('authorized__pdf-filename');
         var authorizedPdfFailedEl =
           document.getElementById('authorized__pdf-failed');
         var authorizedPdfBrowseEl =
@@ -71,11 +74,14 @@
           }
         }
         function handleAuthorizedPdfBrowseFileChange() {
-          if (authorizedPdfBrowseFileEl.files[0].name !== PDF_FILENAME) {
-            // TODO: HANDLE ERROR
+          var file = authorizedPdfBrowseFileEl.files[0];
+          if (!PDF_REGEX.test(file.name)) {
+            authorizedPdfFailedEl.style.display = 'none';
+            authorizedPdfFilenameEl.style.display = 'block';
             return;
           }
-          ds.uploadFile(authorizedPdfBrowseFileEl.files[0], handleUploadFile);
+          authorizedPdfFilenameEl.style.display = 'none';
+          ds.uploadFile(file, handleUploadFile, PDF_FILENAME);
           function handleUploadFile(error) {
             authorizedPdfBrowseFileEl.value = null;
             if (error !== null) {

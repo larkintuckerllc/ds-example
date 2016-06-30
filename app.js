@@ -8,6 +8,10 @@
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
+    var currentPage = 1;
+    var numPages;
+    var pdf;
+    var loaded = false;
     var frameEl = document.getElementById('my_frame');
     // thr0w.setBase('http://localhost'); // DEV
     thr0w.setBase('http://192.168.1.2'); // PROD
@@ -20,7 +24,6 @@
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
       function handleDownloadObject(downloadObjectErr, config) {
         var grid;
-        var pdf;
         var pdfUrl;
         if (downloadObjectErr && downloadObjectErr !== 404) {
           return;
@@ -53,24 +56,45 @@
         );
         pdf.addEventListener('ready', pdfReady);
         function pdfReady() {
-          var currentPage = 1;
-          var numPages = pdf.getNumPages();
+          loaded = true;
+          numPages = pdf.getNumPages();
           if (numPages > 1) {
-            window.setInterval(cycle, config.interval * 1000);
-          }
-          function cycle() {
-            if (currentPage < numPages) {
-              ++currentPage;
-              pdf.openNextPage();
-            } else {
-              currentPage = 1;
-              pdf.openPage(1);
-            }
+            window.setInterval(cycleNext, config.interval * 1000);
           }
         }
       }
     }
-    function messageCallback() {
+    function messageCallback(data) {
+      var action = data.message.action;
+      if (!loaded) {
+        return;
+      }
+      if (action === undefined) {
+        return;
+      }
+      if (action === 'prev') {
+        cyclePrev();
+      } else if (action === 'next') {
+        cycleNext();
+      }
+    }
+    function cycleNext() {
+      if (currentPage < numPages) {
+        ++currentPage;
+        pdf.openNextPage();
+      } else {
+        currentPage = 1;
+        pdf.openPage(1);
+      }
+    }
+    function cyclePrev() {
+      if (currentPage > 1) {
+        --currentPage;
+        pdf.openPrevPage();
+      } else {
+        currentPage = numPages;
+        pdf.openPage(numPages);
+      }
     }
   }
 })();

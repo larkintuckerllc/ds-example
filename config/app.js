@@ -8,8 +8,9 @@
   var ds = window.ds;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    // ds.setBase('http://localhost', USER, REPO); // DEV
-    ds.setBase('http://192.168.1.2', USER, REPO); // PROD
+    // ds.setBase('http://localhost');
+    ds.setBase('http://192.168.1.2'); // PROD
+    ds.setRepo(USER, REPO);
     ds.addAdminTools(document.body,loginCallback);
     function loginCallback() {
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);

@@ -1,4 +1,4 @@
-.control-float__button {
+.authorized-float__button {
   position: absolute;
   z-index: 1;
   transform: translateY(-50%);
@@ -8,11 +8,11 @@
   width: 0px;
   height: 0px;
 }
-#control-float__button--prev {
+#authorized-float__button--prev {
   left: 30px;
   border-right: 30px solid black;
 }
-#control-float__button--next {
+#authorized-float__button--next {
   right: 30px;
   border-left: 30px solid black;
 }

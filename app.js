@@ -1,5 +1,7 @@
 (function() {
   'use strict';
+  // var BASE = 'http://localhost'; // DEV
+  var BASE = 'http://192.168.1.2'; // PROD
   var USER = 'larkintuckerllc';
   var REPO = 'ds-example';
   var CONFIG_FILENAME = 'config.json';
@@ -13,14 +15,13 @@
     var pdf;
     var loaded = false;
     var frameEl = document.getElementById('my_frame');
-    // thr0w.setBase('http://localhost'); // DEV
-    thr0w.setBase('http://192.168.1.2'); // PROD
+    thr0w.setBase(BASE);
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function connectCallback() {
       var contentEl = document.getElementById('my_content');
-      // ds.setBase('http://localhost', USER, REPO); // DEV
-      ds.setBase('http://192.168.1.2', USER, REPO); // PROD
+      ds.setBase(BASE);
+      ds.setRepo(USER, REPO);
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
       function handleDownloadObject(downloadObjectErr, config) {
         var grid;

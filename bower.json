@@ -1,6 +1,6 @@
 {
   "name": "ds-example",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "authors": [
     "John Tucker <john@larkintuckerllc.com>"
   ],
@@ -19,6 +19,7 @@
     "thr0w-client": "^2.1.2",
     "thr0w-pdf": "^0.0.5",
     "ds-client": "^0.1.2",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "leapjs": "^0.6.4"
   }
 }

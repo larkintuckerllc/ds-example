@@ -1,7 +1,5 @@
 (function() {
   'use strict';
-  // var BASE = 'http://localhost'; // DEV
-  var BASE = 'http://192.168.1.2'; // PROD
   var CONFIG_FILENAME = 'config.json';
   var PDF_FILENAME = 'example.pdf';
   var USER = 'larkintuckerllc';
@@ -11,8 +9,10 @@
   var ds = window.ds;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    thr0w.setBase(BASE);
-    ds.setBase(BASE);
+    var base = window.location.protocol + '//' +
+      window.location.hostname;
+    thr0w.setBase(base);
+    ds.setBase(base);
     ds.setRepo(USER, REPO);
     if (window.localStorage.getItem('logout')) {
       window.localStorage.removeItem('logout');
@@ -145,7 +145,7 @@
             function reload() {
               thr0w.thr0w([10], {
                 action: 'update',
-                url: BASE + '/kiosk.html'
+                url: base + '/kiosk.html'
               });
             }
           }

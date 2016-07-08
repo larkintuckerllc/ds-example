@@ -1,7 +1,5 @@
 (function() {
   'use strict';
-  // var BASE = 'http://localhost'; // DEV
-  var BASE = 'http://192.168.1.2'; // PROD
   var USER = 'larkintuckerllc';
   var REPO = 'ds-example';
   var CONFIG_FILENAME = 'config.json';
@@ -16,6 +14,8 @@
   var Leap = window.Leap;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
+    var base = window.location.protocol + '//' +
+      window.location.hostname;
     var currentPage = 1;
     var numPages;
     var pdf;
@@ -24,7 +24,7 @@
     var leapController = Leap.loop({enableGestures: true}, leapCallback);
     var lastGesture = Date.now();
     leapController.on('gesture', handleGesture);
-    thr0w.setBase(BASE);
+    thr0w.setBase(base);
     thr0w.addAdminTools(frameEl,
       connectCallback, messageCallback);
     function leapCallback() {
@@ -59,7 +59,7 @@
     }
     function connectCallback() {
       var contentEl = document.getElementById('my_content');
-      ds.setBase(BASE);
+      ds.setBase(base);
       ds.setRepo(USER, REPO);
       ds.downloadObject(CONFIG_FILENAME, handleDownloadObject);
       function handleDownloadObject(downloadObjectErr, config) {

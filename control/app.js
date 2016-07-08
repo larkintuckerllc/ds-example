@@ -1,11 +1,11 @@
 (function() {
   'use strict';
-  // var BASE = 'http://localhost'; // DEV
-  var BASE = 'http://192.168.1.2'; // PROD
   var thr0w = window.thr0w;
   document.addEventListener('DOMContentLoaded', ready);
   function ready() {
-    thr0w.setBase(BASE);
+    var base = window.location.protocol + '//' +
+      window.location.hostname;
+    thr0w.setBase(base);
     thr0w.addLoginTools(document.body, loginCallback);
     function loginCallback() {
       document.getElementById('authorized__logout')

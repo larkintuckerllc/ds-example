@@ -1,6 +1,6 @@
 {
   "name": "ds-example",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "authors": [
     "John Tucker <john@larkintuckerllc.com>"
   ],
@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "thr0w-client": "^2.1.2",
+    "thr0w-client": "^2.1.3",
     "thr0w-pdf": "^0.0.5",
     "ds-client": "^0.1.2",
     "bootstrap": "^3.3.6",
